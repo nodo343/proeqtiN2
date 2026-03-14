@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Step Ordering</title>
+    <link rel="stylesheet" href="../common/common.css">
+    <link rel="stylesheet" href="signup.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="notification-container"></div>
+    <header>
+        <div class="container nav-container">
+            <a href="../index.html" class="logo">
+                <span class="step">Step</span>
+                <span class="ordering">Ordering</span>
+            </a>
+            <nav id="main-nav">
+                <a href="../index.html">Home</a>
+                <a href="../cart/index.html" class="cart-btn">
+                    <span>Cart</span>
+                    <div class="cart-icon-container">
+                        <i class="fas fa-motorcycle"></i>
+                    </div>
+                </a>
+                <div class="auth-links-group">
+                    <a href="../signin/index.html" class="nav-link-auth">Sign In</a>
+                    <a href="index.html" class="nav-link-auth active" style="color: var(--primary-color)">Sign Up</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="auth-page">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2>Create Account</h2>
+            </div>
+
+            <div id="signup-form" class="auth-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> First Name</label>
+                        <input type="text" id="reg-fname" placeholder="John">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-id-card"></i> Last Name</label>
+                        <input type="text" id="reg-lname" placeholder="Doe">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Phone</label>
+                        <input type="text" id="reg-phone" placeholder="+995 5xx xxx xxx">
+                    </div>
+                    <div class="form-group span-6">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="reg-email" placeholder="john@example.com">
+                    </div>
+                    <div class="form-group span-6">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="reg-password" placeholder="••••••••">
+                    </div>
+                    <div class="form-group span-12">
+                        <label><i class="fas fa-map-marker-alt"></i> Address</label>
+                        <input type="text" id="reg-address" placeholder="Tbilisi, Georgia">
+                    </div>
+                    <div class="form-group span-12">
+                        <label><i class="fas fa-image"></i> Avatar URL</label>
+                        <input type="text" id="reg-avatar" placeholder="https://image-url.com">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-alt"></i> Age</label>
+                        <input type="number" id="reg-age" placeholder="25">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-venus-mars"></i> Gender</label>
+                        <select id="reg-gender">
+                            <option value="">Choose...</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-map-pin"></i> Zip Code</label>
+                        <input type="text" id="reg-zip" placeholder="0100">
+                    </div>
+                </div>
+                <button class="btn-full" id="btn-signup-main">Create Account</button>
+            </div>
+
+            <div class="auth-footer">
+                Already have an account? <a href="../signin/index.html">Sign In</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© Step Ordering 2026, All rights reserved</p>
+        </div>
+    </footer>
+
+    <script type="module" src="signup.js"></script>
+</body>
+
+</html>

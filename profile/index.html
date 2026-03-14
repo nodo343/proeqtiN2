@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Step Ordering</title>
+    <link rel="stylesheet" href="../common/common.css">
+    <link rel="stylesheet" href="profile.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="notification-container"></div>
+    <header>
+        <div class="container nav-container">
+            <a href="../index.html" class="logo">
+                <span class="step">Step</span>
+                <span class="ordering">Ordering</span>
+            </a>
+            <nav id="main-nav">
+                <a href="../index.html">Home</a>
+                <a href="../cart/index.html" class="cart-btn">
+                    <span>Cart</span>
+                    <div class="cart-icon-container">
+                        <i class="fas fa-motorcycle"></i>
+                    </div>
+                </a>
+                <div class="auth-links-group">
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="profile-page">
+        <div class="container">
+            <div class="profile-card">
+                <div class="profile-sidebar">
+                    <img id="profile-img" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Avatar">
+                    <h2 id="profile-fullname">User Name</h2>
+                    <p id="profile-email-sub">email@example.com</p>
+                    <button id="btn-logout" class="btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+                <div class="profile-details">
+                    <h3>Personal Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>First Name</label>
+                            <span id="info-fname">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Last Name</label>
+                            <span id="info-lname">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Email</label>
+                            <span id="info-email">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Phone</label>
+                            <span id="info-phone">-</span>
+                        </div>
+                        <div class="info-item span-2">
+                            <label>Address</label>
+                            <span id="info-address">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Age</label>
+                            <span id="info-age">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Gender</label>
+                            <span id="info-gender">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Zip Code</label>
+                            <span id="info-zip">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© Step Ordering 2026, All rights reserved</p>
+        </div>
+    </footer>
+
+    <script type="module" src="profile.js"></script>
+</body>
+</html>

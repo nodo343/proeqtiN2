@@ -1,0 +1,119 @@
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 160px);
+    padding: 100px 20px 40px;
+}
+
+.auth-card {
+    background: white;
+    width: 100%;
+    max-width: 800px;
+
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+.auth-header {
+    background: #f9f9f9;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+.auth-header h2 {
+    color: var(--primary-color);
+    font-size: 24px;
+    margin: 0;
+}
+
+.auth-form {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    grid-column: span 4;
+
+}
+
+.form-group.span-6 {
+    grid-column: span 6;
+}
+
+.form-group.span-12 {
+    grid-column: span 12;
+}
+
+.form-group label {
+    font-weight: 700;
+    font-size: 13px;
+    color: #444;
+}
+
+.form-group input,
+.form-group select {
+    padding: 14px;
+    border-radius: 10px;
+    border: 2px solid #f0f0f0;
+    outline: none;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(227, 27, 35, 0.1);
+}
+
+.btn-full {
+    margin-top: 10px;
+    width: 100%;
+    padding: 18px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-full:hover:not(:disabled) {
+    background-color: #c1151b;
+}
+
+.auth-footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    border-top: 1px solid #eee;
+}
+
+.auth-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .form-group {
+        grid-column: span 12 !important;
+    }
+}

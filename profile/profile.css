@@ -1,0 +1,128 @@
+.profile-page {
+    padding-top: 120px;
+    padding-bottom: 60px;
+    background-color: #f4f6f8;
+    min-height: 100vh;
+}
+
+.profile-card {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.profile-sidebar {
+    background: #fcfcfc;
+    padding: 40px 20px;
+    text-align: center;
+    border-right: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.profile-sidebar h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.profile-sidebar p {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.btn-logout {
+    margin-top: auto;
+    background: white;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-logout:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.profile-details {
+    padding: 40px;
+}
+
+.profile-details h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-item.span-2 {
+    grid-column: span 2;
+}
+
+.info-item label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #999;
+    text-transform: uppercase;
+}
+
+.info-item span {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .profile-card {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-sidebar {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .info-item.span-2 {
+        grid-column: span 1;
+    }
+}

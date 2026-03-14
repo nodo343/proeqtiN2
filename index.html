@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step Ordering - Fast and Efficient</title>
+    <link rel="stylesheet" href="common/common.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="notification-container"></div>
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="step">Step</span>
+                <span class="ordering">Ordering</span>
+            </a>
+
+            <div class="mobile-toggle" id="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <nav id="main-nav">
+                <a href="index.html" id="nav-home" class="active">Home</a>
+                <a href="cart/index.html" id="nav-cart" class="cart-btn">
+                    <span>Cart</span>
+                    <div class="cart-icon-container">
+                        <i class="fas fa-motorcycle"></i>
+                    </div>
+                </a>
+                <div class="auth-links-group">
+                    <a href="signin/index.html" id="nav-signin" class="nav-link-auth">Sign In</a>
+                    <a href="signup/index.html" id="nav-signup" class="nav-link-auth">Sign Up</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main id="home-section">
+        <section class="hero">
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <h1>Fast And Efficient, Online Ordering You Must Try.</h1>
+            </div>
+        </section>
+
+        <section class="menu-section container">
+            <h2 class="section-title">Categories</h2>
+            <button id="category-mobile-toggle" class="btn-category-toggle">
+                <span>Category</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="categories-list" id="categories-container">
+                <button class="category-item active" data-id="all">All</button>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="menu-main">
+                <aside class="sidebar">
+                    <div class="filter-card">
+                        <div class="filter-header">
+                            <h3>Filter</h3>
+                            <i class="fas fa-filter"></i>
+                        </div>
+
+                        <div class="filter-group">
+                            <label>Spiciness: <span id="spiciness-value">Not Chosen</span></label>
+                            <input type="range" id="spiciness-filter" min="0" max="4" step="1" value="0">
+                        </div>
+
+                        <div class="filter-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="nuts-filter">
+                                <span class="custom-checkbox"></span>
+                                No Nuts
+                            </label>
+                        </div>
+
+                        <div class="filter-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="veg-filter">
+                                <span class="custom-checkbox"></span>
+                                Vegeterian Only
+                            </label>
+                        </div>
+
+                        <div class="filter-actions">
+                            <button id="reset-filter" class="btn btn-secondary">RESET</button>
+                            <button id="apply-filter" class="btn btn-primary">APPLY FILTER</button>
+                        </div>
+                    </div>
+                </aside>
+
+                <div class="products-grid" id="products-container">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© Step Ordering 2026, All rights reserved</p>
+        </div>
+    </footer>
+
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
