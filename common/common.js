@@ -1,6 +1,11 @@
 const API_BASE = 'https://restaurant.stepprojects.ge/api';
 const AUTH_STORAGE_KEY = 'step_ordering_auth_session';
 const REGISTERED_USERS_STORAGE_KEY = 'step_ordering_registered_users';
+const ADMIN_EMAILS = ['nodikogamer01@gmail.com'];
+
+function normalizeEmail(value = '') {
+    return `${value ?? ''}`.trim().toLowerCase();
+}
 
 function showNotification(type, title, message) {
     const container = document.getElementById('notification-container');
@@ -38,7 +43,7 @@ function getProjectBasePath() {
     const path = window.location.pathname;
 
     return path
-        .replace(/\/(signin|signup|cart|profile)\/?(index\.html)?$/i, '/')
+        .replace(/\/(signin|signup|cart|profile|admin)\/?(index\.html)?$/i, '/')
         .replace(/\/index\.html$/i, '/');
 }
 
@@ -93,7 +98,7 @@ function getRegisteredUsersMap() {
 
 function saveRegisteredUser(userData = {}) {
     const normalizeValue = (value) => `${value ?? ''}`.trim();
-    const email = (userData.email || '').trim().toLowerCase();
+    const email = normalizeEmail(userData.email || '');
     if (!email) return;
 
     const usersMap = getRegisteredUsersMap();
@@ -119,11 +124,32 @@ function saveRegisteredUser(userData = {}) {
 }
 
 function getRegisteredUserByEmail(email = '') {
-    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedEmail = normalizeEmail(email);
     if (!normalizedEmail) return null;
 
     const usersMap = getRegisteredUsersMap();
     return usersMap[normalizedEmail] || null;
+}
+
+function getRegisteredUsersList() {
+    const usersMap = getRegisteredUsersMap();
+
+    return Object.values(usersMap).map((user) => {
+        const { password, ...safeUser } = user || {};
+        return safeUser;
+    });
+}
+
+function isAdminEmail(email = '') {
+    const normalizedEmail = normalizeEmail(email);
+    if (!normalizedEmail) return false;
+
+    return ADMIN_EMAILS.includes(normalizedEmail);
+}
+
+function isCurrentUserAdmin(session = getAuthSession()) {
+    const userEmail = session?.email || '';
+    return isAdminEmail(userEmail);
 }
 
 function getUserDisplayName(session = getAuthSession()) {
@@ -158,6 +184,17 @@ function renderAuthNavigation() {
     if (!session) return;
 
     const displayName = getUserDisplayName(session);
+    const isAdmin = isCurrentUserAdmin(session);
+    const navigationFragment = document.createDocumentFragment();
+
+    if (isAdmin) {
+        const adminLink = document.createElement('a');
+        adminLink.href = getAppPath('admin/index.html');
+        adminLink.className = 'nav-link-auth';
+        adminLink.innerText = 'Admin Panel';
+        navigationFragment.appendChild(adminLink);
+    }
+
     const profileLink = document.createElement('a');
     profileLink.href = getAppPath('profile/index.html');
     profileLink.className = 'profile-group';
@@ -174,7 +211,8 @@ function renderAuthNavigation() {
 
     profileLink.append(avatar, nameText);
     authLinksGroup.innerHTML = '';
-    authLinksGroup.appendChild(profileLink);
+    navigationFragment.appendChild(profileLink);
+    authLinksGroup.appendChild(navigationFragment);
 }
 
 function getPostLoginRedirect() {
@@ -237,7 +275,10 @@ export {
     clearAuthSession,
     saveRegisteredUser,
     getRegisteredUserByEmail,
+    getRegisteredUsersList,
     getUserDisplayName,
+    isAdminEmail,
+    isCurrentUserAdmin,
     renderAuthNavigation,
     getPostLoginRedirect,
     getAppPath,
