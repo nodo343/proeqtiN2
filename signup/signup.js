@@ -28,6 +28,7 @@ btnSignupMain.addEventListener('click', () => {
             firstName,
             lastName,
             phone,
+            password,
             address,
             avatar,
             age,
