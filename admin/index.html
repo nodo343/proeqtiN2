@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Step Ordering</title>
+    <link rel="stylesheet" href="../common/common.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="notification-container"></div>
+    <header>
+        <div class="container nav-container">
+            <a href="../index.html" class="logo">
+                <span class="step">Step</span>
+                <span class="ordering">Ordering</span>
+            </a>
+            <nav id="main-nav">
+                <a href="../index.html">Home</a>
+                <a href="../cart/index.html" class="cart-btn">
+                    <span>Cart</span>
+                    <div class="cart-icon-container">
+                        <i class="fas fa-motorcycle"></i>
+                    </div>
+                </a>
+                <div class="auth-links-group">
+                    <a href="../signin/index.html" class="nav-link-auth">Sign In</a>
+                    <a href="../signup/index.html" class="nav-link-auth">Sign Up</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-page">
+        <div class="container">
+            <section class="admin-card">
+                <div class="admin-header">
+                    <h2>Admin Panel</h2>
+                    <p>Private access for nodikogamer01@gmail.com</p>
+                </div>
+
+                <div class="admin-stats">
+                    <div class="stat-box">
+                        <span>Total Users</span>
+                        <strong id="stat-total-users">0</strong>
+                    </div>
+                    <div class="stat-box">
+                        <span>With Phone</span>
+                        <strong id="stat-with-phone">0</strong>
+                    </div>
+                    <div class="stat-box">
+                        <span>With Address</span>
+                        <strong id="stat-with-address">0</strong>
+                    </div>
+                </div>
+
+                <div class="admin-tools">
+                    <input type="text" id="search-user" placeholder="Search by name, email or phone">
+                    <button id="btn-refresh-users">Refresh Users</button>
+                </div>
+
+                <div class="admin-layout">
+                    <div class="users-list-card">
+                        <table class="users-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-table-body"></tbody>
+                        </table>
+                        <p id="users-empty" class="users-empty" hidden>No registered users found.</p>
+                    </div>
+
+                    <aside class="user-details-card">
+                        <h3>User Profile</h3>
+                        <img id="detail-avatar" class="detail-avatar"
+                            src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User avatar">
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <label>Full Name</label>
+                                <span id="detail-name">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Email</label>
+                                <span id="detail-email">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Phone</label>
+                                <span id="detail-phone">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Address</label>
+                                <span id="detail-address">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Age</label>
+                                <span id="detail-age">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Gender</label>
+                                <span id="detail-gender">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Zip Code</label>
+                                <span id="detail-zip">-</span>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; Step Ordering 2026, All rights reserved</p>
+        </div>
+    </footer>
+
+    <script type="module" src="admin.js"></script>
+</body>
+
+</html>
