@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function init() {
     const isAuthorized = checkAuth({ requireAuth: true });
+    if (!isAuthorized) return;
+
     await Promise.all([
         fetchCategories(),
         fetchProducts(),
