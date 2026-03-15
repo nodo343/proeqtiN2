@@ -1,10 +1,12 @@
-import { API_BASE, showNotification, checkAuth } from '../common/common.js';
+import { API_BASE, showNotification, checkAuth, renderAuthNavigation } from '../common/common.js';
 
 let cart = [];
 
 async function init() {
     const isAuthorized = checkAuth({ requireAuth: true });
     if (!isAuthorized) return;
+
+    renderAuthNavigation();
 
     await fetchCart();
     setupEventListeners();
