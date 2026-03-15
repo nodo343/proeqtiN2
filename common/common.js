@@ -1,5 +1,6 @@
 const API_BASE = 'https://restaurant.stepprojects.ge/api';
 const AUTH_STORAGE_KEY = 'step_ordering_auth_session';
+const REGISTERED_USERS_STORAGE_KEY = 'step_ordering_registered_users';
 
 function showNotification(type, title, message) {
     const container = document.getElementById('notification-container');
@@ -73,6 +74,60 @@ function isAuthenticated() {
     return !!getAuthSession();
 }
 
+function getRegisteredUsersMap() {
+    const rawValue = localStorage.getItem(REGISTERED_USERS_STORAGE_KEY);
+    if (!rawValue) return {};
+
+    try {
+        const parsed = JSON.parse(rawValue);
+        if (!parsed || typeof parsed !== 'object') {
+            return {};
+        }
+
+        return parsed;
+    } catch (error) {
+        localStorage.removeItem(REGISTERED_USERS_STORAGE_KEY);
+        return {};
+    }
+}
+
+function saveRegisteredUser(userData = {}) {
+    const normalizeValue = (value) => `${value ?? ''}`.trim();
+    const email = (userData.email || '').trim().toLowerCase();
+    if (!email) return;
+
+    const usersMap = getRegisteredUsersMap();
+    usersMap[email] = {
+        email,
+        firstName: normalizeValue(userData.firstName),
+        lastName: normalizeValue(userData.lastName),
+        phone: normalizeValue(userData.phone),
+        address: normalizeValue(userData.address),
+        age: normalizeValue(userData.age),
+        gender: normalizeValue(userData.gender),
+        zipCode: normalizeValue(userData.zipCode),
+        avatar: normalizeValue(userData.avatar)
+    };
+
+    localStorage.setItem(REGISTERED_USERS_STORAGE_KEY, JSON.stringify(usersMap));
+}
+
+function getRegisteredUserByEmail(email = '') {
+    const normalizedEmail = email.trim().toLowerCase();
+    if (!normalizedEmail) return null;
+
+    const usersMap = getRegisteredUsersMap();
+    return usersMap[normalizedEmail] || null;
+}
+
+function getUserDisplayName(session = getAuthSession()) {
+    if (!session) return 'User';
+
+    const fallbackName = session.email ? session.email.split('@')[0] : 'User';
+    const displayName = (session.firstName || fallbackName || 'User').trim();
+    return displayName || 'User';
+}
+
 function setAuthSession(userData = {}) {
     const session = {
         isAuthenticated: true,
@@ -87,6 +142,33 @@ function setAuthSession(userData = {}) {
 
 function clearAuthSession() {
     localStorage.removeItem(AUTH_STORAGE_KEY);
+}
+
+function renderAuthNavigation() {
+    const authLinksGroup = document.querySelector('.auth-links-group');
+    if (!authLinksGroup) return;
+
+    const session = getAuthSession();
+    if (!session) return;
+
+    const displayName = getUserDisplayName(session);
+    const profileLink = document.createElement('a');
+    profileLink.href = getAppPath('profile/index.html');
+    profileLink.className = 'profile-group';
+    profileLink.setAttribute('aria-label', `Open profile for ${displayName}`);
+
+    const avatar = document.createElement('img');
+    avatar.src = 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+    avatar.alt = `${displayName} avatar`;
+    avatar.className = 'profile-avatar';
+
+    const nameText = document.createElement('span');
+    nameText.className = 'profile-name';
+    nameText.innerText = displayName;
+
+    profileLink.append(avatar, nameText);
+    authLinksGroup.innerHTML = '';
+    authLinksGroup.appendChild(profileLink);
 }
 
 function getPostLoginRedirect() {
@@ -147,6 +229,10 @@ export {
     getAuthSession,
     setAuthSession,
     clearAuthSession,
+    saveRegisteredUser,
+    getRegisteredUserByEmail,
+    getUserDisplayName,
+    renderAuthNavigation,
     getPostLoginRedirect,
     getAppPath,
     isAuthenticated
