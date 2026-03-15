@@ -97,6 +97,11 @@ function saveRegisteredUser(userData = {}) {
     if (!email) return;
 
     const usersMap = getRegisteredUsersMap();
+    const existingUser = usersMap[email] || {};
+    const password = typeof userData.password === 'string'
+        ? userData.password
+        : (existingUser.password || '');
+
     usersMap[email] = {
         email,
         firstName: normalizeValue(userData.firstName),
@@ -106,7 +111,8 @@ function saveRegisteredUser(userData = {}) {
         age: normalizeValue(userData.age),
         gender: normalizeValue(userData.gender),
         zipCode: normalizeValue(userData.zipCode),
-        avatar: normalizeValue(userData.avatar)
+        avatar: normalizeValue(userData.avatar),
+        password
     };
 
     localStorage.setItem(REGISTERED_USERS_STORAGE_KEY, JSON.stringify(usersMap));
