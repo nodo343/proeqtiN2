@@ -1,4 +1,9 @@
-import { showNotification } from '../common/common.js';
+import {
+    showNotification,
+    checkAuth,
+    setAuthSession,
+    getPostLoginRedirect
+} from '../common/common.js';
 
 (function () {
     emailjs.init("pydBn61ETbAfZva2V");
@@ -22,6 +27,8 @@ const btnVerifyCode = document.getElementById('btn-verify-code');
 const codeGroup = document.getElementById('code-group');
 const loginCredentials = document.getElementById('login-credentials');
 const loginEmailInput = document.getElementById('login-email');
+
+checkAuth({ redirectAuthenticatedTo: getPostLoginRedirect() });
 
 btnLoginMain.addEventListener('click', () => {
     const email = loginEmailInput.value.trim().toLowerCase();
@@ -85,10 +92,15 @@ btnLoginMain.addEventListener('click', () => {
 btnVerifyCode.addEventListener('click', () => {
     const enteredCode = document.getElementById('verification-code').value;
     if (enteredCode === generatedCode) {
+        const email = loginEmailInput.value.trim().toLowerCase();
+        const firstName = email ? email.split('@')[0] : 'User';
+        const redirectTo = getPostLoginRedirect();
+
+        setAuthSession({ email, firstName });
         showNotification('success', 'Logged In!', 'Welcome back to Step Ordering!');
         setTimeout(() => {
-            window.location.href = '../index.html';
-        }, 2000);
+            window.location.href = redirectTo;
+        }, 1200);
     } else {
         showNotification('error', 'Invalid Code', 'The code you entered is incorrect. Try again.');
     }
