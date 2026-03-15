@@ -33,7 +33,6 @@ function updateCartBadge(cart) {
     const cartCount = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
 }
 
-function checkAuth() {
 function getProjectBasePath() {
     const path = window.location.pathname;
 
@@ -140,7 +139,6 @@ function checkAuth(options = {}) {
     return authenticated;
 }
 
-export { API_BASE, showNotification, updateCartBadge, checkAuth };
 export {
     API_BASE,
     showNotification,
