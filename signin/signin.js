@@ -28,21 +28,42 @@ const btnVerifyCode = document.getElementById('btn-verify-code');
 const codeGroup = document.getElementById('code-group');
 const loginCredentials = document.getElementById('login-credentials');
 const loginEmailInput = document.getElementById('login-email');
+const loginPasswordInput = document.getElementById('login-password');
 
 checkAuth({ redirectAuthenticatedTo: getPostLoginRedirect() });
 
 btnLoginMain.addEventListener('click', () => {
     const email = loginEmailInput.value.trim().toLowerCase();
+    const password = loginPasswordInput.value;
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     if (!email || !isValidEmail) {
         showNotification('error', 'Hold on!', 'Please enter a valid email address first.');
         return;
     }
+    if (!password) {
+        showNotification('error', 'Missing Password', 'Please enter your password.');
+        return;
+    }
 
     loginEmailInput.value = email;
-    generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
     const registeredUser = getRegisteredUserByEmail(email);
+    if (!registeredUser) {
+        showNotification('error', 'Account Not Found', 'No account exists for this email. Please sign up first.');
+        return;
+    }
+
+    if (!registeredUser.password) {
+        showNotification('error', 'Password Missing', 'This account has no saved password. Please sign up again.');
+        return;
+    }
+
+    if (password !== registeredUser.password) {
+        showNotification('error', 'Wrong Password', 'Password is incorrect. Try again.');
+        return;
+    }
+
+    generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
     const recipientName = registeredUser?.firstName || email.split('@')[0];
 
     // Provide common variable names so different EmailJS template setups
@@ -92,10 +113,27 @@ btnLoginMain.addEventListener('click', () => {
 });
 
 btnVerifyCode.addEventListener('click', () => {
+    if (!generatedCode) {
+        showNotification('error', 'No Code', 'Please request a login code first.');
+        return;
+    }
+
     const enteredCode = document.getElementById('verification-code').value;
     if (enteredCode === generatedCode) {
         const email = loginEmailInput.value.trim().toLowerCase();
         const registeredUser = getRegisteredUserByEmail(email);
+        const password = loginPasswordInput.value;
+
+        if (!registeredUser || !registeredUser.password) {
+            showNotification('error', 'Login Failed', 'Account data is missing. Please sign up again.');
+            return;
+        }
+
+        if (password !== registeredUser.password) {
+            showNotification('error', 'Wrong Password', 'Password changed or incorrect. Please try again.');
+            return;
+        }
+
         const firstName = registeredUser?.firstName || (email ? email.split('@')[0] : 'User');
         const redirectTo = getPostLoginRedirect();
 
