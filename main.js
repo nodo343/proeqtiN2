@@ -20,12 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function init() {
+    const isAuthorized = checkAuth({ requireAuth: true });
     await Promise.all([
         fetchCategories(),
         fetchProducts(),
         fetchCart()
     ]);
-    checkAuth();
     setupEventListeners();
 }
 
