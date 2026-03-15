@@ -3,7 +3,6 @@ import { API_BASE, showNotification, checkAuth } from '../common/common.js';
 let cart = [];
 
 async function init() {
-    checkAuth('../profile/index.html');
     await fetchCart();
     setupEventListeners();
 }
