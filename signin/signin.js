@@ -2,7 +2,8 @@ import {
     showNotification,
     checkAuth,
     setAuthSession,
-    getPostLoginRedirect
+    getPostLoginRedirect,
+    getRegisteredUserByEmail
 } from '../common/common.js';
 
 (function () {
@@ -41,7 +42,8 @@ btnLoginMain.addEventListener('click', () => {
 
     loginEmailInput.value = email;
     generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
-    const recipientName = email.split('@')[0];
+    const registeredUser = getRegisteredUserByEmail(email);
+    const recipientName = registeredUser?.firstName || email.split('@')[0];
 
     // Provide common variable names so different EmailJS template setups
     // can resolve recipient and display fields correctly.
@@ -93,7 +95,8 @@ btnVerifyCode.addEventListener('click', () => {
     const enteredCode = document.getElementById('verification-code').value;
     if (enteredCode === generatedCode) {
         const email = loginEmailInput.value.trim().toLowerCase();
-        const firstName = email ? email.split('@')[0] : 'User';
+        const registeredUser = getRegisteredUserByEmail(email);
+        const firstName = registeredUser?.firstName || (email ? email.split('@')[0] : 'User');
         const redirectTo = getPostLoginRedirect();
 
         setAuthSession({ email, firstName });
