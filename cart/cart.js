@@ -3,6 +3,9 @@ import { API_BASE, showNotification, checkAuth } from '../common/common.js';
 let cart = [];
 
 async function init() {
+    const isAuthorized = checkAuth({ requireAuth: true });
+    if (!isAuthorized) return;
+
     await fetchCart();
     setupEventListeners();
 }
