@@ -1,4 +1,3 @@
-import { API_BASE, showNotification, checkAuth } from './common/common.js';
 import { API_BASE, showNotification, checkAuth, renderAuthNavigation } from './common/common.js';
 
 let state = {
