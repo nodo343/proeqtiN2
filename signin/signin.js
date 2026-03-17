@@ -15,6 +15,7 @@ let generatedCode = null;
 const mailSenderName = 'Step Ordering';
 const emailServiceId = 'service_3q7gxqb';
 const emailTemplateId = 'template_0hrfqwa';
+const SIGNIN_DRAFT_STORAGE_KEY = 'step_ordering_signin_draft';
 
 const codeInput = document.getElementById('code-input');
 const codeInput2 = document.getElementById('code-input-2');
@@ -31,6 +32,47 @@ const loginEmailInput = document.getElementById('login-email');
 const loginPasswordInput = document.getElementById('login-password');
 
 checkAuth({ redirectAuthenticatedTo: getPostLoginRedirect() });
+restoreSignInDraft();
+setupSignInDraftAutoSave();
+
+function readSignInDraft() {
+    const rawValue = localStorage.getItem(SIGNIN_DRAFT_STORAGE_KEY);
+    if (!rawValue) return null;
+
+    try {
+        const parsed = JSON.parse(rawValue);
+        if (!parsed || typeof parsed !== 'object') return null;
+        return parsed;
+    } catch (error) {
+        localStorage.removeItem(SIGNIN_DRAFT_STORAGE_KEY);
+        return null;
+    }
+}
+
+function writeSignInDraft(draft = {}) {
+    localStorage.setItem(SIGNIN_DRAFT_STORAGE_KEY, JSON.stringify(draft));
+}
+
+function clearSignInDraft() {
+    localStorage.removeItem(SIGNIN_DRAFT_STORAGE_KEY);
+}
+
+function restoreSignInDraft() {
+    const draft = readSignInDraft();
+    if (!draft) return;
+
+    if (typeof draft.email === 'string') {
+        loginEmailInput.value = draft.email;
+    }
+}
+
+function setupSignInDraftAutoSave() {
+    loginEmailInput.addEventListener('input', () => {
+        writeSignInDraft({
+            email: loginEmailInput.value.trim().toLowerCase()
+        });
+    });
+}
 
 btnLoginMain.addEventListener('click', () => {
     const email = loginEmailInput.value.trim().toLowerCase();
@@ -47,6 +89,7 @@ btnLoginMain.addEventListener('click', () => {
     }
 
     loginEmailInput.value = email;
+    writeSignInDraft({ email });
     const registeredUser = getRegisteredUserByEmail(email);
     if (!registeredUser) {
         showNotification('error', 'Account Not Found', 'No account exists for this email. Please sign up first.');
@@ -138,6 +181,7 @@ btnVerifyCode.addEventListener('click', () => {
         const redirectTo = getPostLoginRedirect();
 
         setAuthSession({ email, firstName });
+        clearSignInDraft();
         showNotification('success', 'Logged In!', 'Welcome back to Step Ordering!');
         setTimeout(() => {
             window.location.href = redirectTo;
